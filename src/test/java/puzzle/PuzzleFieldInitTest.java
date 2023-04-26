@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import static org.example.puzzle.FieldInit.initRandomTiles;
 import static org.example.puzzle.PuzzleFieldInit.baseArrayWebInit;
+import static org.example.puzzle.PuzzleFieldInit.switchRandomTiles;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -32,6 +33,7 @@ class PuzzleFieldInitTest {
     @Test
     void initRandomTilesTest() {
         initRandomTiles(puzzleField);
+        switchRandomTiles(puzzleField);
         int[][] wonGrid = {{0, 1, 2, 3}, {4, 5, 6, 7}, {8, 9, 10, 11}, {12, 13, 14, 15}};
         assertFalse(Arrays.deepEquals(wonGrid, puzzleField));
     }

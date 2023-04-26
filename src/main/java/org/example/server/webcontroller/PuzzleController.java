@@ -1,5 +1,6 @@
 package org.example.server.webcontroller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.puzzle.PuzzleFifteenLogic;
 import org.example.server.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import static org.example.puzzle.PuzzleFieldInit.*;
 @Controller
 @Scope(WebApplicationContext.SCOPE_SESSION)
 @RequestMapping("/puzzle")
+@Slf4j
 public class PuzzleController {
     private final PuzzleFifteenLogic puzzleFifteenLogic = new PuzzleFifteenLogic();
     static int size = 4;
@@ -63,28 +65,28 @@ public class PuzzleController {
             isSaved = true;
         } catch (IOException e) {
             isSaved = false;
-            System.out.println("Game was not     saved" + e.getMessage());
-        } finally {
-            return "redirect:/puzzle";
+            log.error("Game was not saved" + e.getMessage());
         }
+        return "redirect:/puzzle";
     }
 
     @RequestMapping("/load")
     public String getSavedGame() throws IOException {
-        ObjectInputStream in = new ObjectInputStream(new FileInputStream(SAVED_GAME));
+
         isSaved = false;
         isLoaded = false;
-        try {
-            grid = (int[][]) in.readObject();
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(SAVED_GAME))) {
+            grid = (int[][]) ois.readObject();
             isLoaded = true;
-            countOfMove = (int) in.readObject();
+            countOfMove = (int) ois.readObject();
+            ;
         } catch (ClassNotFoundException e) {
-            System.out.println("Saved game not exists");
+            log.error("Saved game not exists" + e.getMessage());
             isLoaded = false;
             startNewGame();
-        } finally {
-            return "redirect:/puzzle";
         }
+        return "redirect:/puzzle";
+
     }
 
     public String getPuzzleField() {
@@ -122,21 +124,22 @@ public class PuzzleController {
 
         baseArrayWebInit(grid);
         do {
-            initRandomTiles(grid);
+            switchRandomTiles(grid);
         }
         while (isSolved(grid));
     }
 
     void startOrUpdateGame(Integer index) {
-        int temp = 0;
-        int listIndex = 0;
+        int temp = 0, listIndex = 0;
         boolean isMove = false;
         if (grid == null) {
             startNewGame();
         }
         //if parameter was input
         if (index != null) {
-            List<Integer> list = Arrays.stream(grid).flatMap(row -> Arrays.stream(row).boxed()).collect(Collectors.toList());
+            List<Integer> list = Arrays.stream(grid)
+                    .flatMap(row -> Arrays.stream(row).boxed())
+                    .collect(Collectors.toList());
             if (!Objects.equals(list, winCombination)) {
                 //moveleft
                 if ((index - 1) >= 0 && (index - 1) <= 15) {
@@ -154,7 +157,6 @@ public class PuzzleController {
                 if ((index + 1) >= 0 && (index + 1) <= 15) {
                     if (list.get(index + 1) == 0) {
                         if (puzzleFifteenLogic.isCanMoveRight(index)) {
-
                             temp = list.get(index);
                             list.set(index, 0);
                             list.set(index + 1, temp);
@@ -167,7 +169,6 @@ public class PuzzleController {
                 if ((index + 4) >= 0 && (index + 4) <= 15) {
                     if (list.get(index + 4) == 0) {
                         if (puzzleFifteenLogic.isCanMoveDown(index)) {
-
                             temp = list.get(index);
                             list.set(index, 0);
                             list.set(index + 4, temp);
@@ -204,7 +205,6 @@ public class PuzzleController {
             if (Objects.equals(list, winCombination)) {
                 setGameResult(WIN);
                 checkWin = true;
-                return;
             }
         }
     }
