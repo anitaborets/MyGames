@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Gamestudio</title>
-    <link rel="stylesheet" href="/css/stylesheet.css"/>
-    <link rel="stylesheet" href="/css/gamestudio.css"/>
+    <link rel="stylesheet" href="/styles/puzzle.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        body {
+            max-width: 100rem;
+        }
+
+
+    </style>
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -23,21 +30,56 @@
 
 <div class="container">
     <h1 align="center">PUZZLE FIFTEEN</h1>
+    <div class="container-fluid text-center">
+    </div>
 
-        <div class="col-sm-4">
-            <div th:utext="${@puzzleController.getPuzzleField()}"></div>
-        </div>
-        <div class="col-sm-4">
-            <div class="mx-auto" style="width: 200px;">
-                <a href="puzzle/new" class="btn btn-success btn-lg "
-                   role="button" aria-pressed="true">NEW GAME</a>
+
+    <div class="w3-panel w3-green w3-display-container" th:if="${@puzzleController.isSaved}">
+              <span onclick="this.parentElement.style.display='none'"
+                    class="w3-button w3-large w3-display-topright">&times;</span>
+        <h3>Game was saved successfully</h3>
+    </div>
+
+    <div class="w3-panel w3-green w3-display-container" th:if="${@puzzleController.isLoaded}">
+              <span onclick="this.parentElement.style.display='none'"
+                    class="w3-button w3-large w3-display-topright">&times;</span>
+        <h3>Game was load successfully</h3>
+    </div>
+
+    <div class="w3-panel w3-gray w3-display-container w3-right-align" th:if="${@puzzleController.checkWin}">
+  <span onclick="this.parentElement.style.display='none'"
+        class="w3-button w3-large w3-display-topright">&times;</span>
+        <h3>YOU ARE WIN!</h3>
+    </div>
+
+
+    <div class="w3-container">
+        <div class="row w3-margin">
+            <div class="col-5">
+                <a href="puzzle/new" class="w3-button w3-yellow m3 w3-padding-16"
+                   role="button">NEW GAME</a>
+                <a href="puzzle/save" class="w3-button w3-purple m3 w3-padding-16"
+                   aria-pressed="true" role="button">SAVE GAME</a>
+
+                <a href="puzzle/load" class="w3-button w3-deep-purple m3 w3-padding-16"
+                   role="button" aria-pressed="true">LOAD GAME</a>
+            </div>
+            <div class="col-5">
+                <button class="btn btn-success btn-lg btn-block">
+                    Steps <span class="badge badge-light" th:utext="${@puzzleController.getCountOfMove()}"></span>
+                </button>
             </div>
         </div>
     </div>
 </div>
+</div>
+<div class="w3-row">
+    <div class="w3-col s9 w3-center">
+        <div th:utext="${@puzzleController.getPuzzleField()}"></div>
+    </div>
 
+</div>
 <div th:replace="fragments/footer.html"></div>
-
 
 </body>
 </html>
