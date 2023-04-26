@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamestudio</title>
+    <link rel="stylesheet" href="/css/stylesheet.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+<!--/*@thymesVar id="userController" type="sk.tuke.gamestudio.server.controller.UserController"*/-->
+<div th:replace="fragments/navbar.html"></div>
+<h1 align="center">GAMESTUDIO</h1>
+<h2 align="center">Vítame Vás v našom novom Gamestudio!</h2>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <a th:href="@{/comment}" class="btn btn-primary btn-lg active" role="button"
+               aria-pressed="true">COMMENTS</a>
+            <a th:href="@{/score}" class="btn btn-primary btn-lg active" role="button"
+               aria-pressed="true">STATISTICS</a>
+        </div>
+        <div class="col">
+            <h4>Zaregistruj sa</h4>
+            <form action="#" th:action="@{/registration}" th:object="${user}" th:method="post">
+                <div class="row g-3">
+                    <div class="col">
+                        Meno: <input type="text" id="name" name="name"/>
+                        Login: <input type="text" id="userName" name="userName"/>
+                        Email: <input id="email" name="email"/>
+                    </div>
+                    <div class="col">
+                        Password: <input name="password"/>
+                        Repeat the password:<input name="password2"/>
+                    </div>
+                    <div class="col">
+                        Pohlavi: <input type="radio" name="gender" value="female" checked/>žena
+                        <input type="radio" name="gender" value="male"/>muž
+                        <INPUT type="submit" class="btn btn-primary btn-lg btn-block" value="Uložiť">
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+    <div class="row no-gutters bg-light position-relative">
+        <div class="col-md-6 mb-md-0 p-md-4">
+            <img src="/image/miness.jpg" class="w-100" alt="mines">
+        </div>
+        <div class="col-md-6 position-static p-4 pl-md-0">
+            <h5 class="mt-0">MINESWEEPER</h5>
+            <p>Zachovajte si bystrú myseľ v hre Microsoft Minesweeper. Pomocou logického a strategického myslenia
+                vyčistite
+                hraciu
+                plochu bez odpálenia míny.
+                Prechádzajte originálnou a ikonickou hrou Minesweeper. Zabavi všetky vekové kategórie.</p>
+            <a th:href="@{/mines}" class="stretched-link">START MINESWEEPER</a>
+        </div>
+    </div>
+    <div class="row no-gutters bg-light position-relative">
+        <div class="col-md-6 mb-md-0 p-md-4">
+            <img src="/image/15.jpg" class="w-100" alt="puzzle">
+        </div>
+        <div class="col-md-6 position-static p-4 pl-md-0">
+            <h5 class="mt-0">PUZZLE FIFTEEN</h5>
+            <p>Patnáctka je hlavolam, ve kterém musí hráč přesouváním kamenů uvnitř malé čtvercové krabičky tyto kameny
+                seřadit.
+                Hlavolam sestává z 4×4 čtvercových kamenů, místo jednoho kamene je však volné místo, které umožňuje
+                kameny v
+                krabičce posouvat.
+                Na začátku jsou kameny zamíchány, cílem hry je seřadit je podle na nich napsaných čísel..</p>
+            <a th:href="@{/puzzle}" class="stretched-link">START PUZZLE FIFTEEN</a>
+        </div>
+
+        <div class="col-md-6 mb-md-0 p-md-4">
+            <img src="/image/toe.jpg" class="w-100" alt="tic-tak-toe">
+        </div>
+
+        <div class="col-md-6 position-static p-4 pl-md-0">
+            <h5 class="mt-0">TIC - TAC - TOE</h5>
+            <p>Piškvorky jsou strategická hra pro dva hráče, při se které střídají v pokládání kamenů na hrací desku
+                (případně kreslení dvou rozdílných symbolů, například křížků a koleček). Ten, kdo vytvoří nepřerušenou
+                řadu pěti svých značek, vyhrává..</p>
+            <a th:href="@{/toe}" class="stretched-link">START TIC TAC TOE</a>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer.html"></div>
+</body>
+</html>

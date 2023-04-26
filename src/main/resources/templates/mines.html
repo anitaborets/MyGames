@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamestudio</title>
+    <link rel="stylesheet" href="/css/stylesheet.css"/>
+    <link rel="stylesheet" href="/css/gamestudio.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+<div th:replace="fragments/navbar.html"></div>
+
+<h1 align="center">MINESWEEPER</h1>
+<div class="m-5">
+    <a href="mines/beginner" class="btn btn-warning btn-lg "
+       role="button" aria-pressed="true">BEGINNER</a>
+    <a href="mines/im" class="btn btn-success btn-lg "
+       role="button" aria-pressed="true">INTERMEDIATE</a>
+    <a href="mines/ex" class="btn btn-danger btn-lg "
+       role="button" aria-pressed="true">EXPERT</a>
+</div>
+
+<div class="mx-auto" style="width: 200px;">
+    <a href="mines/new" class="btn btn-success btn-lg "
+       role="button" aria-pressed="true">NEW GAME</a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <div th:utext="${@minesController.getHtmlField()}"></div>
+        </div>
+        <div class="col m-5">
+            <a th:if="not ${@minesController.isMarking()}" href="mines/chmode" class="btn btn-success  btn-lg"
+               role="button" aria-pressed="true">Change mode to mark</a>
+            <a th:if="${@minesController.isMarking()}" href="mines/chmode" class="btn btn-primary btn-lg"
+               role="button" aria-pressed="true">Change mode to open</a>
+        </div>
+
+        <div class="col m-5">
+            <div class="card text-center" style="width: 18rem;">
+                <img src="/image/images/mines/mine.svg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Count of mines</h5>
+                    <p class="card-text" th:utext="${@minesController.getCountOfMines()}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div th:replace="fragments/footer.html"></div>
+
+</body>
+</html>

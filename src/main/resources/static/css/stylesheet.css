@@ -1,0 +1,60 @@
+.demotbl th{
+
+    padding:15px;
+
+    color:#fff;
+
+    text-shadow:1px 1px 1px #568F23;
+
+    border-bottom:3px solid #9ED929;
+
+    background-color:#9DD929;
+
+    background:-webkit-gradient(
+
+            linear,
+
+            left bottom,
+
+            left top,
+
+            color-stop(0.02, rgb(123,192,67)),
+
+            color-stop(0.51, rgb(139,198,66)),
+
+            color-stop(0.87, rgb(158,217,41))
+
+    );
+
+    background: -moz-linear-gradient(
+            rgb(123,192,67) 3%,
+
+            rgb(139,198,66) 52%,
+
+            rgb(158,217,41) 88%
+
+    );
+
+    -webkit-border-top-left-radius:5px;
+
+    -webkit-border-top-right-radius:5px;
+
+    -moz-border-radius:5px 5px 0px 0px;
+
+    border-top-left-radius:5px;
+
+    border-top-right-radius:5px;
+
+}
+
+.field__tile {
+    width: 64px;
+    height: 64px;
+    margin: 2px;
+    border: 2px solid #afb8c3;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
